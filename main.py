@@ -27,6 +27,10 @@ class programm(BaseWidget):
     def __init__(self):
         super(programm,self).__init__('programm')
 
+        #def calc_res(self):
+        #    print(self)
+           # print(self._iron.value)
+
         #Definition of the forms fields
         self._iron = ControlText('Введите время использования утюга (ч)')
         self._tv = ControlText('Введите время использования телевизора (ч)')
@@ -57,20 +61,16 @@ class programm(BaseWidget):
         doc.add_paragraph(("Затраты на использование стиральной машины ", str(WNf(int(self._wm.value),(int(self._tarif.value))))))
         doc.save("otchet.docx")
 
-
+    @abstractmethod
+    def calc_res(self):
+        pass
 
 class rashit(programm):
     def __init__(self):
-        super().__init__(self)
-        print(self._iron.value)
+        super().__init__()
 
     def calc_res(self):
-        print(self._iron.value)
-
-#   @abstractmethod
-#   def calc_res(self):
-#       pass
-
+        print(self)
 
 
 #class ironr(rashit):
@@ -78,6 +78,7 @@ class rashit(programm):
 #        super().__init__()
 #
 #    def calc_res(self):
+#        print(self)
 #        print(self._ironr)
 
 
