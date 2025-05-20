@@ -26,11 +26,6 @@ class programm(BaseWidget):
 
     def __init__(self):
         super(programm,self).__init__('programm')
-
-        #def calc_res(self):
-        #    print(self)
-           # print(self._iron.value)
-
         #Definition of the forms fields
         self._iron = ControlText('Введите время использования утюга (ч)')
         self._tv = ControlText('Введите время использования телевизора (ч)')
@@ -44,7 +39,7 @@ class programm(BaseWidget):
         self._button_docx = ControlButton('сделать отчёт docx')
         self._ironr = self._iron.value
 
-        self._button_rashit.value = rashit.calc_res
+        self._button_rashit.value = self.__BA_rashit
         self._button_cancel.value = self.__BA_cancel
         self._button_docx.value = self.__BA_docx
 
@@ -52,7 +47,8 @@ class programm(BaseWidget):
         """Button 'cancel' action event"""
         programm.close(self)
 
-        
+    def __BA_rashit(self):
+        ironr._calc_res(self)
 
     def __BA_docx(self):
         """Button 'docx' action event"""
@@ -69,17 +65,16 @@ class rashit(programm):
     def __init__(self):
         super().__init__()
 
+    def _calc_res(self):
+        pass
+
+
+class ironr(rashit):
+    def __init__(self):
+        super().__init__()
+
     def calc_res(self):
-        print(self)
 
-
-#class ironr(rashit):
-#    def __init__(self):
-#        super().__init__()
-#
-#    def calc_res(self):
-#        print(self)
-#        print(self._ironr)
 
 
 
