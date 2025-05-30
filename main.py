@@ -37,7 +37,6 @@ class programm(BaseWidget):
         self._tv_result = ControlText('Затраты на использование телевизора (руб)','0')
         self._wm_result = ControlText('Затраты на использование стиральной машины (руб)','0')
         self._button_docx = ControlButton('сделать отчёт docx')
-        self._ironr = self._iron.value
 
         self._button_rashit.value = self.__BA_rashit
         self._button_cancel.value = self.__BA_cancel
@@ -48,13 +47,15 @@ class programm(BaseWidget):
         programm.close(self)
 
     def __BA_rashit(self):
-        ironr._calc_res(self)
+        ironr.calc_res(self)
+        tvr.calc_res(self)
+        wmr.calc_res(self)
 
     def __BA_docx(self):
         """Button 'docx' action event"""
-        doc.add_paragraph(("Затраты на использование утюга ", str(Ironf(int(self._iron.value),(int(self._tarif.value))))))
-        doc.add_paragraph(("Затраты на использование телевизора ", str(TVf(int(self._tv.value),(int(self._tarif.value))))))
-        doc.add_paragraph(("Затраты на использование стиральной машины ", str(WNf(int(self._wm.value),(int(self._tarif.value))))))
+        doc.add_paragraph(("Затраты на использование утюга ", str(self._iron_result)))
+        doc.add_paragraph(("Затраты на использование телевизора ", str(self._tv_result)))
+        doc.add_paragraph(("Затраты на использование стиральной машины ", str(self._wm_result)))
         doc.save("otchet.docx")
 
     @abstractmethod
@@ -65,7 +66,7 @@ class rashit(programm):
     def __init__(self):
         super().__init__()
 
-    def _calc_res(self):
+    def calc_res(self):
         pass
 
 
@@ -74,10 +75,25 @@ class ironr(rashit):
         super().__init__()
 
     def calc_res(self):
+        self._iron_result.value = str(Ironf(int(self._iron.value),(int(self._tarif.value))))
+
+class tvr(rashit):
+    def __init__(self):
+        super().__init__()
+
+    def calc_res(self):
+        self._tv_result.value = str(TVf(int(self._tv.value),(int(self._tarif.value))))
+
+class wmr(rashit):
+    def __init__(self):
+        super().__init__()
+
+    def calc_res(self):
+        self._wm_result.value = str(WNf(int(self._wm.value),(int(self._tarif.value))))
 
 
 
 
 #Execute the application
-if __name__ == "__main__":   
+if (__name__ == "__main__"):   
     pyforms.start_app(programm, geometry=(200, 200, 600, 600))
